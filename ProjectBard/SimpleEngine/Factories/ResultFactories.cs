@@ -42,9 +42,14 @@ namespace ProjectBard.SimpleEngine
             return InformationalResult(Command, State,
 
                 new TextContent(new List<string> {
-                    "Welcome to Dan's Console Engine v0.01",
+                    "Welcome to Project Bard v0.02",
                     string.Empty,
-                    "At any time, you can type a command. More instructions to come later!"}),
+                    "At any time, the following commands are valid:",
+                    "help - Repeate these instructions.",
+                    "commands - See a list of currently valid commands.",
+                    "state - See the current state of the program.",
+                    "exitgame - Exit the program.",
+                    }),
 
 
                 new TextContent("Type a command, or \"help\" to repeate the instructions")
