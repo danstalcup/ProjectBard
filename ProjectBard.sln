@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectBard", "ProjectBard\ProjectBard.csproj", "{6041A6AE-B1EE-44FD-8075-9BD21E2A52C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectBardGame", "ProjectBardGame\ProjectBardGame.csproj", "{1D4120B6-AD02-429D-8CF4-6D366625C467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectBardDemo", "ProjectBardDemo\ProjectBardDemo.csproj", "{A169C2C2-6846-4224-AA49-208C5FC1C59E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6041A6AE-B1EE-44FD-8075-9BD21E2A52C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6041A6AE-B1EE-44FD-8075-9BD21E2A52C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6041A6AE-B1EE-44FD-8075-9BD21E2A52C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6041A6AE-B1EE-44FD-8075-9BD21E2A52C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D4120B6-AD02-429D-8CF4-6D366625C467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4120B6-AD02-429D-8CF4-6D366625C467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4120B6-AD02-429D-8CF4-6D366625C467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4120B6-AD02-429D-8CF4-6D366625C467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A169C2C2-6846-4224-AA49-208C5FC1C59E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A169C2C2-6846-4224-AA49-208C5FC1C59E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A169C2C2-6846-4224-AA49-208C5FC1C59E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A169C2C2-6846-4224-AA49-208C5FC1C59E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
