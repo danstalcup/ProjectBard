@@ -27,8 +27,14 @@ namespace ProjectBardGame.GameEngine.GameStates
         public ITextContent ValidCommands
         {
             get
-            {
-                throw new NotImplementedException();
+            {                             
+                return TextContentFactories.EligibleCommands
+                (
+                    new List<string> {
+                    "start - Start the latest version of the game.",
+                    "start [version] - Start a specific version of the game."
+                    }
+                );                
             }
         }
 
