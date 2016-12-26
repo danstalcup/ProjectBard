@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectBardGame
+namespace ProjectBardGame.GameComponents
 {
-    class Program
+    public enum Direction
     {
-        static void Main(string[] args)
-        {
-        }
+        North, South, East, West
     }
 }

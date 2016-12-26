@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1D4120B6-AD02-429D-8CF4-6D366625C467}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProjectBardGame</RootNamespace>
     <AssemblyName>ProjectBardGame</AssemblyName>
@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ProjectBard">
       <HintPath>..\ProjectBard\bin\Debug\ProjectBard.dll</HintPath>
@@ -46,17 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameComponents\ICarver.cs" />
+    <Compile Include="GameComponents\IMaze.cs" />
+    <Compile Include="GameComponents\IMazeCell.cs" />
+    <Compile Include="GameComponents\Impl\Direction.cs" />
+    <Compile Include="GameComponents\Impl\Maze.cs" />
+    <Compile Include="GameComponents\Impl\MazeCell.cs" />
     <Compile Include="GameContentTool\GameRepository.cs" />
     <Compile Include="GameEngine\GameStates\StartGameState.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GameComponents\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
