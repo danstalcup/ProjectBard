@@ -24,6 +24,7 @@ namespace ProjectBardGame.GameComponents
         void CarveSouth();
         void CarveEast();
         void CarveWest();
+        void CarveDirection(Direction Direction);
 
         int X { get; }
         int Y { get; }

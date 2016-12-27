@@ -41,7 +41,25 @@ namespace ProjectBardGame.GameComponents
 
         public bool IsOpen(Direction Direction)
         {
-            throw new NotImplementedException();
+            bool result = false;
+
+            switch (Direction)
+            {
+                case Direction.North:
+                    result = IsNorthOpen;
+                    break;
+                case Direction.South:
+                    result = IsSouthOpen;
+                    break;
+                case Direction.East:
+                    result = IsEastOpen;
+                    break;
+                case Direction.West:
+                    result = IsWestOpen;
+                    break;
+            }
+
+            return result;
         }
 
         public Direction? Adjacency(IMazeCell MazeCell)
@@ -93,7 +111,7 @@ namespace ProjectBardGame.GameComponents
         {
             if(East != null)
             {
-                East.CarveEast();
+                East.CarveWest();
             }
         }
 
@@ -121,6 +139,25 @@ namespace ProjectBardGame.GameComponents
                     break;
             }
             return result;
+        }
+
+        public void CarveDirection(Direction Direction)
+        {
+            switch(Direction)
+            {
+                case Direction.North:
+                    CarveNorth();
+                    break;
+                case Direction.South:
+                    CarveSouth();
+                    break;
+                case Direction.East:
+                    CarveEast();
+                    break;
+                case Direction.West:
+                    CarveWest();
+                    break;
+            }
         }
 
         private readonly Maze _maze;

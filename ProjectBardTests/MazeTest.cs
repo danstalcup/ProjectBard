@@ -11,7 +11,7 @@ namespace ProjectBardTests
     public class MazeTest
     {
         [TestMethod]
-        public void EmptyMazeDisplayTest()
+        public void EmptyMazeDisplay()
         {            
             Maze maze = new Maze(3,3);
             ITextContent output = maze.Display;
@@ -23,6 +23,16 @@ namespace ProjectBardTests
             }
 
             Assert.AreEqual("███████", output.ContentLines[6]);
+        }
+
+        [TestMethod]
+        public void CarvedMaze()
+        {
+            Maze maze = new Maze(5, 5);
+            GrowingTreeCarver carver = new GrowingTreeCarver(maze, new NewestSelector(), new Random());
+            carver.CarveAllSteps();
+
+            ITextContent output = maze.Display;            
         }
     }
 }

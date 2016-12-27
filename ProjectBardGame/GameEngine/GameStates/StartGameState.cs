@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using ProjectBard.Framework;
 using ProjectBard.SimpleEngine;
 
-namespace ProjectBardGame.GameEngine.GameStates
+namespace ProjectBardGame.GameEngine
 {
     public class StartGameState : IState
     {
@@ -32,15 +32,26 @@ namespace ProjectBardGame.GameEngine.GameStates
                 (
                     new List<string> {
                     "start - Start the latest version of the game.",
-                    "start [version] - Start a specific version of the game."
+                    "start [version] - Start a specific version of the game."                    
                     }
                 );                
             }
         }
 
         public IResult Process(ICommand Command)
-        {
-            throw new NotImplementedException();
+        {            
+            IResult result = null;
+            switch (Command.Command)
+            {
+                case "start":
+                    result = MazeFactories.MazeResult(Command, new MazeState(), true);
+                    result.NextPrompt = new TextContent("Welcome to the maze generator! Create and view mazes.");
+                    break;
+                default:
+                    result = ResultFactories.EmptyResult(Command,this);
+                    break;
+            }
+            return result;
         }
     }
 }

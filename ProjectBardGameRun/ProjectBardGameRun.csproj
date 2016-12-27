@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1D4120B6-AD02-429D-8CF4-6D366625C467}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{7D336BB2-6DFC-4224-AAE2-4DF22DA10722}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ProjectBardGame</RootNamespace>
-    <AssemblyName>ProjectBardGame</AssemblyName>
+    <RootNamespace>ProjectBardGameRun</RootNamespace>
+    <AssemblyName>ProjectBardGameRun</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,12 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ProjectBard">
       <HintPath>..\ProjectBard\bin\Debug\ProjectBard.dll</HintPath>
+    </Reference>
+    <Reference Include="ProjectBardGame">
+      <HintPath>..\ProjectBardGame\bin\Debug\ProjectBardGame.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,26 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameComponents\ICarver.cs" />
-    <Compile Include="GameComponents\IMaze.cs" />
-    <Compile Include="GameComponents\IMazeCell.cs" />
-    <Compile Include="GameComponents\IMazeCellSelector.cs" />
-    <Compile Include="GameComponents\Impl\Direction.cs" />
-    <Compile Include="GameComponents\Impl\GrowingTreeCarver.cs" />
-    <Compile Include="GameComponents\Impl\Maze.cs" />
-    <Compile Include="GameComponents\Impl\MazeCell.cs" />
-    <Compile Include="GameComponents\Impl\NewestSelector.cs" />
-    <Compile Include="GameComponents\Impl\RandomSelector.cs" />
-    <Compile Include="GameContentTool\GameRepository.cs" />
-    <Compile Include="GameEngine\Factories\MazeFactories.cs" />
-    <Compile Include="GameEngine\GameStates\MazeState.cs" />
-    <Compile Include="GameEngine\GameStates\StartGameState.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
