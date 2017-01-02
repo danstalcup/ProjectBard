@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
-    public class SimpleCommand : ICommand
+    public class Command : ICommand
     {
         public IList<string> Arguments
         {
             get; set;
         }
 
-        public string Command
+        public string CommandString
         {
             get; set;
         }        

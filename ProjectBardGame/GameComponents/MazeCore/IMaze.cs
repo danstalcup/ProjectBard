@@ -14,5 +14,7 @@ namespace ProjectBardGame.GameComponents
         int Height { get; }
         int Width { get; }
         ITextContent Display { get; }
+        ICollection<IMazeAgentPosition> AgentPositions { get; }
+        ICollection<IMazeAgent> Agents { get; }   
     }
 }

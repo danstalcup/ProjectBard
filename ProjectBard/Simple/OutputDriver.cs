@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
-    public class ConsoleOutputDriver : IOutputDriver
+    public class OutputDriver : IOutputDriver
     {
         public void OnCompleted()
         {

@@ -8,13 +8,13 @@ using ProjectBard.ContentTool;
 using ProjectBard.Framework;
 
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
     public class StateFactories
     {
-        public static SimpleState EmptyState()
+        public static State EmptyState()
         {
-            return new SimpleState
+            return new State
             {
                 StateDescription = new TextContent("Game Started.")                
             };

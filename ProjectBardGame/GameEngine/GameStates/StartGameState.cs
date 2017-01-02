@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ProjectBard.Framework;
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 
 namespace ProjectBardGame.GameEngine
 {
@@ -41,10 +41,10 @@ namespace ProjectBardGame.GameEngine
         public IResult Process(ICommand Command)
         {            
             IResult result = null;
-            switch (Command.Command)
+            switch (Command.CommandString)
             {
                 case "start":
-                    result = MazeFactories.MazeResult(Command, new MazeState(), true);
+                    result = MazeFactories.MazeResult(Command, new MazeState { ReturnState = this }, true);
                     result.NextPrompt = new TextContent("Welcome to the maze generator! Create and view mazes.");
                     break;
                 default:

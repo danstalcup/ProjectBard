@@ -54,15 +54,15 @@
     <Compile Include="ContentTool\SimpleRepository.cs" />
     <Compile Include="Framework\IContentTool.cs" />
     <Compile Include="Framework\IRepository.cs" />
-    <Compile Include="SimpleEngine\ConsoleOutputDriver.cs" />
-    <Compile Include="SimpleEngine\Factories\CommandFactories.cs" />
-    <Compile Include="SimpleEngine\Factories\ResultFactories.cs" />
-    <Compile Include="SimpleEngine\Factories\StateFactories.cs" />
-    <Compile Include="SimpleEngine\Factories\TextContentFactories.cs" />
-    <Compile Include="SimpleEngine\SimpleResult.cs" />
-    <Compile Include="SimpleEngine\SimpleCommand.cs" />
-    <Compile Include="SimpleEngine\ConsoleInputDriver.cs" />
-    <Compile Include="SimpleEngine\ConsoleEngine.cs" />
+    <Compile Include="Simple\OutputDriver.cs" />
+    <Compile Include="Simple\Factories\CommandFactories.cs" />
+    <Compile Include="Simple\Factories\ResultFactories.cs" />
+    <Compile Include="Simple\Factories\StateFactories.cs" />
+    <Compile Include="Simple\Factories\TextContentFactories.cs" />
+    <Compile Include="Simple\Result.cs" />
+    <Compile Include="Simple\Command.cs" />
+    <Compile Include="Simple\InputDriver.cs" />
+    <Compile Include="Simple\Engine.cs" />
     <Compile Include="Framework\ICommand.cs" />
     <Compile Include="Framework\IEngine.cs" />
     <Compile Include="Framework\IInputDriver.cs" />
@@ -70,8 +70,8 @@
     <Compile Include="Framework\IResult.cs" />
     <Compile Include="Framework\IState.cs" />
     <Compile Include="Framework\ITextContent.cs" />
-    <Compile Include="SimpleEngine\SimpleState.cs" />
-    <Compile Include="SimpleEngine\TextContent.cs" />
+    <Compile Include="Simple\State.cs" />
+    <Compile Include="Simple\TextContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

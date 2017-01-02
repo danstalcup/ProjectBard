@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ProjectBard.Framework;
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 using ProjectBardGame.GameComponents;
 
 namespace ProjectBardGame.GameEngine
@@ -43,7 +43,7 @@ namespace ProjectBardGame.GameEngine
         public IResult Process(ICommand Command)
         {
             IResult result = null;
-            switch (Command.Command)
+            switch (Command.CommandString)
             {
                 case "newmaze":
                     {                        
@@ -53,11 +53,9 @@ namespace ProjectBardGame.GameEngine
                         IMazeCellSelector selector = new NewestSelector();
                         if(Command.Arguments.Count > 2)
                         {
-                            switch(Command.Arguments[2])
-                            {
-                                case "random":
-                                    selector = new RandomSelector(new Random());
-                                    break;
+                            if(Command.Arguments.Contains("random"))
+                            {                                
+                                selector = new RandomSelector(new Random());                                    
                             }
                         }
 
@@ -104,7 +102,16 @@ namespace ProjectBardGame.GameEngine
             }
         }
 
+        public IMazeDriver MazeDriver
+        {
+            get
+            {
+                return _driver;
+            }
+        }
+
         private Maze _maze;
         private ICarver _carver;
+        private IMazeDriver _driver;
     }
 }

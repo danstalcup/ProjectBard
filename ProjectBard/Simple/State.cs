@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
-    public class SimpleState : IState
+    public class State : IState
     {
         public IState ReturnState
         {

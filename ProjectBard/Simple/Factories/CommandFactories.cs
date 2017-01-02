@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
     public class CommandFactories
     {
-        public static SimpleCommand StartCommand()
+        public static Command StartCommand()
         {
-            return new SimpleCommand
+            return new Command
             {
-                Command = "start",
+                CommandString = "start",
                 Arguments = new string[0]
             };
         }

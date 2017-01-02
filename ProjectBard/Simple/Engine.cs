@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
-    public class ConEngine : IEngine
+    public class Engine : IEngine
     {
-        public ConEngine(IState StartState, IContentTool ContentTool)
+        public Engine(IState StartState, IContentTool ContentTool)
         {
-            Input = new ConsoleInputDriver();
-            Output = new ConsoleOutputDriver();
+            Input = new InputDriver();
+            Output = new OutputDriver();
             _observers = new List<IObserver<IResult>>();
             Subscribe(Output);
             Input.Subscribe(this);
@@ -27,7 +27,7 @@ namespace ProjectBard.SimpleEngine
         public IResult Process(ICommand Command)
         {
             IResult result = null;
-            string coreCommand = Command.Command.Trim();
+            string coreCommand = Command.CommandString.Trim();
             if(coreCommand == "help")
             {
                 result = ResultFactories.HelpResult(Command, CurrentState);

@@ -8,7 +8,7 @@ namespace ProjectBard.Framework
 {
     public interface ICommand
     {
-        string Command { get; set; }
+        string CommandString { get; set; }
 
         IList<string> Arguments { get; set; }
     }

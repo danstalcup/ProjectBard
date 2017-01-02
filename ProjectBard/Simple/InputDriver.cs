@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 
-namespace ProjectBard.SimpleEngine
+namespace ProjectBard.Simple
 {
-    public class ConsoleInputDriver : IInputDriver
+    public class InputDriver : IInputDriver
     {
-        public ConsoleInputDriver()
+        public InputDriver()
         {
             _observers = new List<IObserver<ICommand>>();
         }
@@ -34,9 +34,9 @@ namespace ProjectBard.SimpleEngine
 
                 inputParameters.RemoveAt(0);
 
-                var command = new SimpleCommand
+                var command = new Command
                 {
-                    Command = firstParameter,
+                    CommandString = firstParameter,
                     Arguments = inputParameters
                 };
 

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ProjectBard.Framework;
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 using ProjectBard.ContentTool;
 using ProjectBardGame.GameComponents;
 using ProjectBardGame.GameEngine;
@@ -17,7 +17,7 @@ namespace ProjectBardGameRun
         static void Main(string[] args)
         {
             IState startState = new StartGameState() ;
-            ConEngine engine = new ConEngine(startState, new SimpleContentTool(startState, new SimpleRepository()));
+            Engine engine = new Engine(startState, new SimpleContentTool(startState, new SimpleRepository()));
         }
     }
 }

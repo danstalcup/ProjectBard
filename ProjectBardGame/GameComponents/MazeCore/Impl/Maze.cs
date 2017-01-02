@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectBard.Framework;
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 
 namespace ProjectBardGame.GameComponents
 {
@@ -112,9 +112,25 @@ namespace ProjectBardGame.GameComponents
             }
         }
 
+        public ICollection<IMazeAgentPosition> AgentPositions
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public ICollection<IMazeAgent> Agents
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         private int _width;
         private int _height;
 
-        private MazeCell[,] _cells;
+        private MazeCell[,] _cells;        
     }
 }

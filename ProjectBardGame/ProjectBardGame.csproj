@@ -49,18 +49,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameComponents\ICarver.cs" />
-    <Compile Include="GameComponents\IMaze.cs" />
-    <Compile Include="GameComponents\IMazeCell.cs" />
-    <Compile Include="GameComponents\IMazeCellSelector.cs" />
-    <Compile Include="GameComponents\Impl\Direction.cs" />
-    <Compile Include="GameComponents\Impl\GrowingTreeCarver.cs" />
-    <Compile Include="GameComponents\Impl\Maze.cs" />
-    <Compile Include="GameComponents\Impl\MazeCell.cs" />
-    <Compile Include="GameComponents\Impl\NewestSelector.cs" />
-    <Compile Include="GameComponents\Impl\RandomSelector.cs" />
+    <Compile Include="GameComponents\MazeAgents\IMazeAgent.cs" />
+    <Compile Include="GameComponents\MazeAgents\IMazeAgentPosition.cs" />
+    <Compile Include="GameComponents\MazeAgents\Impl\MazeAgent.cs" />
+    <Compile Include="GameComponents\MazeAgents\Impl\MazeAgentPosition.cs" />
+    <Compile Include="GameComponents\MazeCore\ICarver.cs" />
+    <Compile Include="GameComponents\MazeCore\IMaze.cs" />
+    <Compile Include="GameComponents\MazeCore\IMazeCell.cs" />
+    <Compile Include="GameComponents\MazeCore\IMazeCellSelector.cs" />
+    <Compile Include="GameComponents\MazeCore\IMazeDriver.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\Direction.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\GrowingTreeCarver.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\Maze.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\MazeCell.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\MazeDriver.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\NewestSelector.cs" />
+    <Compile Include="GameComponents\MazeCore\Impl\RandomSelector.cs" />
     <Compile Include="GameContentTool\GameRepository.cs" />
     <Compile Include="GameEngine\Factories\MazeFactories.cs" />
+    <Compile Include="GameEngine\GameStates\MazeSelectorState.cs" />
     <Compile Include="GameEngine\GameStates\MazeState.cs" />
     <Compile Include="GameEngine\GameStates\StartGameState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

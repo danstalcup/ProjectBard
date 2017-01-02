@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 using ProjectBard.Framework;
 using ProjectBard.ContentTool;
 
@@ -15,7 +15,7 @@ namespace ProjectBard
         static void Main(string[] args)
         {
             IState startState = StateFactories.EmptyState();
-            ConEngine engine = new ConEngine(startState, new SimpleContentTool(startState, new SimpleRepository()));
+            Engine engine = new Engine(startState, new SimpleContentTool(startState, new SimpleRepository()));
         }
     }
 }

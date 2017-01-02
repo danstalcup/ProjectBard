@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using ProjectBardGame.GameComponents;
 using ProjectBard.Framework;
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 
 namespace ProjectBardGame.GameEngine
 {

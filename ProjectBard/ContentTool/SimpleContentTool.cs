@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-using ProjectBard.SimpleEngine;
+using ProjectBard.Simple;
 using ProjectBard.Framework;
 
 
@@ -67,7 +67,7 @@ namespace ProjectBard.ContentTool
         public IResult Process(ICommand Command)
         {
             IResult result = null;
-            switch (Command.Command)
+            switch (Command.CommandString)
             {
                 case "directory":
                     {
