@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectBard.ContentTool;
+using ProjectBard.Content;
 using ProjectBard.Framework;
 
 namespace ProjectBardGame.GameContentTool

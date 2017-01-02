@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using ProjectBard.Simple;
 using ProjectBard.Framework;
-using ProjectBard.ContentTool;
+using ProjectBard.Content;
 
 namespace ProjectBard
 {
@@ -15,7 +15,7 @@ namespace ProjectBard
         static void Main(string[] args)
         {
             IState startState = StateFactories.EmptyState();
-            Engine engine = new Engine(startState, new SimpleContentTool(startState, new SimpleRepository()));
+            Engine engine = new Engine(startState, new Content.ContentTool(startState, new Repository()));
         }
     }
 }

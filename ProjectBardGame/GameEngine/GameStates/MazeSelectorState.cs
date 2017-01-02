@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ProjectBard.Framework;
 using ProjectBard.Simple;
 using ProjectBardGame.GameContentTool;
+using ProjectBardGame.GameComponents;
 
 namespace ProjectBardGame.GameEngine
 {
@@ -14,7 +15,7 @@ namespace ProjectBardGame.GameEngine
     {
         public MazeSelectorState(GameRepository Repository)
         {
-            _repository = Repository;
+            //_mazes = Repository.GetContent("maze");
         }
 
         public IState ReturnState
@@ -43,6 +44,6 @@ namespace ProjectBardGame.GameEngine
             throw new NotImplementedException();
         }
 
-        private readonly GameRepository _repository;
+        private readonly List<Maze> _mazes;
     }
 }

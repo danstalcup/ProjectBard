@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContentTool\SimpleContentTool.cs" />
-    <Compile Include="ContentTool\SimpleRepository.cs" />
+    <Compile Include="Content\ContentTool.cs" />
+    <Compile Include="Content\Repository.cs" />
     <Compile Include="Framework\IContentTool.cs" />
     <Compile Include="Framework\IRepository.cs" />
     <Compile Include="Simple\OutputDriver.cs" />

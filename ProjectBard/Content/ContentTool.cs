@@ -9,13 +9,13 @@ using ProjectBard.Simple;
 using ProjectBard.Framework;
 
 
-namespace ProjectBard.ContentTool
+namespace ProjectBard.Content
 {
-    public class SimpleContentTool : IContentTool
+    public class ContentTool : IContentTool
     {
         
 
-        public SimpleContentTool(IState ReturnState, IRepository Repository)
+        public ContentTool(IState ReturnState, IRepository Repository)
         {
             this.Repository = Repository;
             this.Repository.Initialize();
@@ -76,15 +76,7 @@ namespace ProjectBard.ContentTool
                     }
                 case "changedir":
                     {
-                        if (Command.Arguments.Count > 0)
-                        {
-                            Directory = Command.Arguments[0];
-                            result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The directory has been set to: {Directory}"), new TextContent("Type in a command."));
-                        }
-                        else
-                        {
-                            result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Directory name not included."), new TextContent("Type in a command."));
-                        }
+                        result = AttemptDirectoryChange(Command);
                         break;
                     }
                 case "entity":
@@ -94,45 +86,22 @@ namespace ProjectBard.ContentTool
                     }
                 case "changeentity":
                     {
-                        if (Command.Arguments.Count > 0)
-                        {
-                            if (Entities.Contains(Command.Arguments[0].ToLower()))
-                            {
-                                Entity = Command.Arguments[0].ToLower();
-                                result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The entity has been set to: {Entity}"), new TextContent("Type in a command."));
-                            }
-                            else
-                            {
-                                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Selected entity does not exist."), new TextContent("Type in a command."));
-                            }
-                        }
-                        else
-                        {
-                            result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Entity name not included."), new TextContent("Type in a command."));
-                        }
+                        result = AttemptEntityChange(Command);
                         break;
                     }
                 case "initializeempty":
                     {
-                        Repository.Initialize();
-                        result = ResultFactories.StateChangedResult(Command, this, new TextContent($"Empty data set initialized."), new TextContent("Type in a command."));
+                        result = InitializeEmptyRepository(Command);
                         break;
                     }
                 case "entities":
-                    {
-                        StringBuilder entitiesString = new StringBuilder("List of entities:\n");
-                        foreach (string entity in Entities)
-                        {
-                            entitiesString.Append($"- {entity}\n");
-                        }
-                        result = ResultFactories.InformationalResult(Command, this, new TextContent(entitiesString.ToString()), new TextContent("Type in a command."));
+                    {                        
+                        result = ResultFactories.InformationalResult(Command, this, new TextContent(GetEntitiesString().ToString()), new TextContent("Type in a command."));
                         break;
                     }
                 case "data":
                     {
-                        StringBuilder content = new StringBuilder($"All content items for entity {Entity}\n");
-                        content.Append(string.Join("\n",Repository.GetContent(Entity)));
-                        result = ResultFactories.InformationalResult(Command, this, new TextContent(content.ToString()), new TextContent("Type in a command."));
+                        result = GetData(Command);
                         break;
                     }
                 case "details":
@@ -151,14 +120,7 @@ namespace ProjectBard.ContentTool
                     }
                 case "loadexact":
                     {
-                        if (Command.Arguments.Count == 0)
-                        {
-                            result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), new TextContent("Type in a command."));
-                        }
-                        else
-                        {
-                            result = Load(Command, Command.Arguments[0]);
-                        }
+                        result = LoadExact(Command);
                         break;
                     }
                 case "add":
@@ -184,7 +146,87 @@ namespace ProjectBard.ContentTool
             }
 
             return result;
-        }                    
+        }
+
+        private IResult LoadExact(ICommand Command)
+        {
+            IResult result;
+            if (Command.Arguments.Count == 0)
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), new TextContent("Type in a command."));
+            }
+            else
+            {
+                result = Load(Command, Command.Arguments[0]);
+            }
+
+            return result;
+        }
+
+        private IResult GetData(ICommand Command)
+        {
+            IResult result;
+            StringBuilder content = new StringBuilder($"All content items for entity {Entity}\n");
+            content.Append(string.Join("\n", Repository.GetContent<string>()));
+            result = ResultFactories.InformationalResult(Command, this, new TextContent(content.ToString()), new TextContent("Type in a command."));
+            return result;
+        }
+
+        private IResult InitializeEmptyRepository(ICommand Command)
+        {
+            IResult result;
+            Repository.Initialize();
+            result = ResultFactories.StateChangedResult(Command, this, new TextContent($"Empty data set initialized."), new TextContent("Type in a command."));
+            return result;
+        }
+
+        private IResult AttemptDirectoryChange(ICommand Command)
+        {
+            IResult result;
+            if (Command.Arguments.Count > 0)
+            {
+                Directory = Command.Arguments[0];
+                result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The directory has been set to: {Directory}"), new TextContent("Type in a command."));
+            }
+            else
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Directory name not included."), new TextContent("Type in a command."));
+            }
+
+            return result;
+        }
+
+        private string GetEntitiesString()
+        {
+            StringBuilder entitiesString = new StringBuilder("List of entities:\n");
+            foreach (string entity in Entities)
+            {
+                entitiesString.Append($"- {entity}\n");
+            }
+            return entitiesString.ToString();
+        }    
+        
+        private IResult AttemptEntityChange(ICommand Command)
+        {
+            IResult result = null;
+            if (Command.Arguments.Count > 0)
+            {
+                if (Entities.Contains(Command.Arguments[0].ToLower()))
+                {
+                    Entity = Command.Arguments[0].ToLower();
+                    result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The entity has been set to: {Entity}"), new TextContent("Type in a command."));
+                }
+                else
+                {
+                    result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Selected entity does not exist."), new TextContent("Type in a command."));
+                }
+            }
+            else
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Entity name not included."), new TextContent("Type in a command."));
+            }
+            return result;
+        }   
 
         public IResult Save(ICommand Command, params string[] Arguments)
         {
