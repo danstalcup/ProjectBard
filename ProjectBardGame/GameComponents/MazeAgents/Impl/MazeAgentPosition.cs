@@ -26,7 +26,6 @@ namespace ProjectBardGame.GameComponents.MazeAgents.Impl
             get; set;
         }
 
-        private readonly IMazeAgent _agent;
-        private IMazeCell _position;
+        private readonly IMazeAgent _agent;        
     }
 }

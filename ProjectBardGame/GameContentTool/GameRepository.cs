@@ -7,38 +7,17 @@ using System.Threading.Tasks;
 using ProjectBard.Content;
 using ProjectBard.Framework;
 
+using ProjectBardGame.GameComponents;
+
 namespace ProjectBardGame.GameContentTool
 {
-    public class GameRepository : IRepository
+    public class GameRepository : Repository
     {
-        public ITextContent Add(string Entity, params string[] Arguments)
-        {
-            throw new NotImplementedException();
-        }
+        public List<Maze> Mazes { get; set; }
 
-        public void Deserialize(string Entity, string Json)
+        public override void Initialize()
         {
-            throw new NotImplementedException();
-        }
-
-        public IList<object> GetContent(string Entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Initialize()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ITextContent Remove(string Entity, params string[] Arguments)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Serialize(string Entity)
-        {
-            throw new NotImplementedException();
-        }
+            Mazes = new List<Maze>();
+        }        
     }
 }

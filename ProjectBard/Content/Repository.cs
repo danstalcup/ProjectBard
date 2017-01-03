@@ -15,7 +15,7 @@ namespace ProjectBard.Content
     {
         public List<string> Strings { get; set; }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             Strings = new List<string>();
         }

@@ -147,87 +147,7 @@ namespace ProjectBard.Content
 
             return result;
         }
-
-        private IResult LoadExact(ICommand Command)
-        {
-            IResult result;
-            if (Command.Arguments.Count == 0)
-            {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), new TextContent("Type in a command."));
-            }
-            else
-            {
-                result = Load(Command, Command.Arguments[0]);
-            }
-
-            return result;
-        }
-
-        private IResult GetData(ICommand Command)
-        {
-            IResult result;
-            StringBuilder content = new StringBuilder($"All content items for entity {Entity}\n");
-            content.Append(string.Join("\n", Repository.GetContent<string>()));
-            result = ResultFactories.InformationalResult(Command, this, new TextContent(content.ToString()), new TextContent("Type in a command."));
-            return result;
-        }
-
-        private IResult InitializeEmptyRepository(ICommand Command)
-        {
-            IResult result;
-            Repository.Initialize();
-            result = ResultFactories.StateChangedResult(Command, this, new TextContent($"Empty data set initialized."), new TextContent("Type in a command."));
-            return result;
-        }
-
-        private IResult AttemptDirectoryChange(ICommand Command)
-        {
-            IResult result;
-            if (Command.Arguments.Count > 0)
-            {
-                Directory = Command.Arguments[0];
-                result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The directory has been set to: {Directory}"), new TextContent("Type in a command."));
-            }
-            else
-            {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Directory name not included."), new TextContent("Type in a command."));
-            }
-
-            return result;
-        }
-
-        private string GetEntitiesString()
-        {
-            StringBuilder entitiesString = new StringBuilder("List of entities:\n");
-            foreach (string entity in Entities)
-            {
-                entitiesString.Append($"- {entity}\n");
-            }
-            return entitiesString.ToString();
-        }    
-        
-        private IResult AttemptEntityChange(ICommand Command)
-        {
-            IResult result = null;
-            if (Command.Arguments.Count > 0)
-            {
-                if (Entities.Contains(Command.Arguments[0].ToLower()))
-                {
-                    Entity = Command.Arguments[0].ToLower();
-                    result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The entity has been set to: {Entity}"), new TextContent("Type in a command."));
-                }
-                else
-                {
-                    result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Selected entity does not exist."), new TextContent("Type in a command."));
-                }
-            }
-            else
-            {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Entity name not included."), new TextContent("Type in a command."));
-            }
-            return result;
-        }   
-
+       
         public IResult Save(ICommand Command, params string[] Arguments)
         {
             Result result = ResultFactories.EmptyResult(Command, this);
@@ -295,6 +215,107 @@ namespace ProjectBard.Content
             }
             return result;
         }
+            
+        public string Directory
+        {
+            get;set;
+        }
+
+        public string Entity
+        {
+            get; set;
+        }
+
+        public IList<string> Entities
+        {
+            get; set;
+        }
+
+        public IState ReturnState { get; set; }
+
+        public IRepository Repository { get; set; }
+
+        // helpers!
+
+        private IResult LoadExact(ICommand Command)
+        {
+            IResult result;
+            if (Command.Arguments.Count == 0)
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), new TextContent("Type in a command."));
+            }
+            else
+            {
+                result = Load(Command, Command.Arguments[0]);
+            }
+
+            return result;
+        }
+
+        private IResult GetData(ICommand Command)
+        {
+            IResult result;
+            StringBuilder content = new StringBuilder($"All content items for entity {Entity}\n");
+            content.Append(string.Join("\n", Repository.GetContent<string>()));
+            result = ResultFactories.InformationalResult(Command, this, new TextContent(content.ToString()), new TextContent("Type in a command."));
+            return result;
+        }
+
+        private IResult InitializeEmptyRepository(ICommand Command)
+        {
+            IResult result;
+            Repository.Initialize();
+            result = ResultFactories.StateChangedResult(Command, this, new TextContent($"Empty data set initialized."), new TextContent("Type in a command."));
+            return result;
+        }
+
+        private IResult AttemptDirectoryChange(ICommand Command)
+        {
+            IResult result;
+            if (Command.Arguments.Count > 0)
+            {
+                Directory = Command.Arguments[0];
+                result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The directory has been set to: {Directory}"), new TextContent("Type in a command."));
+            }
+            else
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Directory name not included."), new TextContent("Type in a command."));
+            }
+
+            return result;
+        }
+
+        private string GetEntitiesString()
+        {
+            StringBuilder entitiesString = new StringBuilder("List of entities:\n");
+            foreach (string entity in Entities)
+            {
+                entitiesString.Append($"- {entity}\n");
+            }
+            return entitiesString.ToString();
+        }
+
+        private IResult AttemptEntityChange(ICommand Command)
+        {
+            IResult result = null;
+            if (Command.Arguments.Count > 0)
+            {
+                if (Entities.Contains(Command.Arguments[0].ToLower()))
+                {
+                    Entity = Command.Arguments[0].ToLower();
+                    result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The entity has been set to: {Entity}"), new TextContent("Type in a command."));
+                }
+                else
+                {
+                    result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Selected entity does not exist."), new TextContent("Type in a command."));
+                }
+            }
+            else
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Entity name not included."), new TextContent("Type in a command."));
+            }
+            return result;
+        }
 
         private Result AddToRepository(ICommand Command, string Entity)
         {
@@ -310,7 +331,7 @@ namespace ProjectBard.Content
                     ITextContent addResult = Repository.Add(Entity, Command.Arguments.ToArray());
                     result = ResultFactories.StateChangedResult(Command, this, addResult, new TextContent("Type a command."));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), new TextContent("Type a command."));
                 }
@@ -342,24 +363,5 @@ namespace ProjectBard.Content
 
             return result;
         }
-        
-        public string Directory
-        {
-            get;set;
-        }
-
-        public string Entity
-        {
-            get; set;
-        }
-
-        public IList<string> Entities
-        {
-            get; set;
-        }
-
-        public IState ReturnState { get; set; }
-
-        public IRepository Repository { get; set; }
     }
 }

@@ -44,7 +44,7 @@ namespace ProjectBardGame.GameEngine
             switch (Command.CommandString)
             {
                 case "start":
-                    result = MazeFactories.MazeResult(Command, new MazeState { ReturnState = this }, true);
+                    result = MazeFactories.MazeResult(Command, new MazeGenState { ReturnState = this }, true);
                     result.NextPrompt = new TextContent("Welcome to the maze generator! Create and view mazes.");
                     break;
                 default:

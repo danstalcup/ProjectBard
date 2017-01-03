@@ -12,7 +12,7 @@ namespace ProjectBardGame.GameEngine
 {
     public class MazeFactories
     {
-        public static Result MazeResult(ICommand Command, MazeState State, bool StateChanged)
+        public static Result MazeResult(ICommand Command, MazeGenState State, bool StateChanged)
         {
             Result result = ResultFactories.InformationalResult(Command, State, (State.Maze == null ? new TextContent() : State.Maze.Display), new TextContent("Type the next command."));
             result.StateChanged = StateChanged;
