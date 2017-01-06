@@ -18,13 +18,13 @@ namespace ProjectBard.Framework
 
         void Deserialize<T>(string Json);
 
-        ITextContent Add(string Entity, params string[] Arguments);
+        ITextContent Add(string Entity, object Item);
 
-        ITextContent Add<T>(params string[] Arguments);
+        ITextContent Add<T>(T Item);
 
-        ITextContent Remove(string Entity, params string[] Arguments);
+        ITextContent Remove(string Entity, object Item);
 
-        ITextContent Remove<T>(params string[] Arguments);        
+        ITextContent Remove<T>(T Item);        
 
         IList<T> GetContent<T>();
 

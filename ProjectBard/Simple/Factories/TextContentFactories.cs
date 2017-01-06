@@ -10,6 +10,13 @@ namespace ProjectBard.Simple
 {
     public class TextContentFactories
     {
+        public static TextContent NextCommand
+        {
+            get
+            {
+                return new TextContent("Type a command.");
+            }
+        }
         public static TextContent EligibleCommands(IList<string> Commands, bool HasContentToolPermission=true)
         {
 

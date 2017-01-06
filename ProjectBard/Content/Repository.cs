@@ -46,37 +46,43 @@ namespace ProjectBard.Content
             }
         }
 
-        public ITextContent Add(string Entity,  params string[] Arguments)
+        public ITextContent Add(string Entity,  object Item)
         {
             ITextContent result = new TextContent();
             switch(Entity)
             {
                 case "string":
                     {
-                        result = Add<string>(Arguments);
+                        result = Add<string>(Item as string);
                         break;
                     }
             }
             return result;
         }
 
-        public ITextContent Remove(string Entity, params string[] Arguments)
+        public ITextContent Remove(string Entity, object Item)
         {
             ITextContent result = new TextContent();
             switch (Entity)
             {
                 case "string":
                     {
-                        result = Remove<string>(Arguments);
+                        result = Remove<string>(Item as string);
                         break;
                     }
             }
             return result;
         }
 
-        public IList<string> GetContent(string Type)
+        public IList<object> GetContent(string Entity)
         {
-            IList<string> result = Strings.ToList();                       
+            IList<object> result = new List<object>();
+
+            if (Entity == "string")
+            {
+                result = Strings.Select(m => m as object).ToList();
+            }
+
             return result;
         }
 
@@ -111,41 +117,50 @@ namespace ProjectBard.Content
             }
         }
 
-        public ITextContent Add<T>(params string[] Arguments)
-        {
-            string result = string.Empty;
+        public ITextContent Add<T>(T item)
+        {            
+            bool itemAdded = false;
+
             Type type = typeof(T);
             if (type == typeof(string))
             {
-                if (Arguments.Length > 0)
-                {
-                    string stringToAdd = string.Join(" ", Arguments);
-                    Strings.Add(stringToAdd);
-                    result = stringToAdd;
-                }
-                else
-                {
-                    throw new ArgumentException("No string passed as argument.");
-                }
+                Strings.Add(item as string);
+                itemAdded = true;               
+            }
+
+            string result = string.Empty;
+
+            if(itemAdded)
+            {
+                result = type.ToString() + " added: " + item.ToString();
+            }
+            else
+            {
+                result = "ERROR! Item not added.";
             }
             return new TextContent(result);
         }
 
-        public ITextContent Remove<T>(params string[] Arguments)
+        public ITextContent Remove<T>(T item)
         {
-            string result = string.Empty;
+            bool itemRemoved = false;
+
             Type type = typeof(T);
             if (type == typeof(string))
             {
-                if (Arguments.Length > 0)
-                {
-                    Strings.Remove(Arguments[0]);
-                    result = Arguments[0];
-                }
-                else
-                {
-                    throw new ArgumentException("No string passed as argument.");
-                }
+                Strings.Remove(item as string);
+                itemRemoved = true;
+            }
+
+            string result = string.Empty;
+
+            if (itemRemoved)
+            {
+                result = type.ToString() + " removed: " + item.ToString();
+            }
+            else
+            {
+                result = "ERROR! Item not removed.";
             }
             return new TextContent(result);
         }

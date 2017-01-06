@@ -11,7 +11,7 @@ using ProjectBardGame.GameComponents;
 namespace ProjectBardGame.GameEngine
 {
     public class MazeGenState : IState
-    {
+    {        
         public IState ReturnState
         {
             get; set;
@@ -62,7 +62,7 @@ namespace ProjectBardGame.GameEngine
                     }
                 default:
                     {
-                        result = ResultFactories.EmptyResult(Command, this);
+                        result = ResultFactories.InformationalResult(Command, this, new TextContent("Error: Your command was not detected."), NextCommand);
                         break;
                     }
             }
@@ -128,7 +128,7 @@ namespace ProjectBardGame.GameEngine
 
         private IResult SetAutocarver(ICommand command)
         {
-            IResult result = ResultFactories.EmptyResult(command, this);
+            IResult result = null;
 
             if(command.Arguments.Count == 0)
             {
@@ -153,6 +153,14 @@ namespace ProjectBardGame.GameEngine
                     break;
             }
 
+            if(switchMade)
+            {
+                result = ResultFactories.StateChangedResult(command, this, new TextContent($"Selection algorithm set: {_selector.ToString()}\n\nNote: You must create a new maze for the selection algorithm to take effect."), NextCommand);
+            }
+            else
+            {
+                result = ResultFactories.InformationalResult(command, this, new TextContent("No change made in selection algorithm. Your arguments were not detected."), NextCommand);
+            }
 
             return result;
         }
@@ -182,6 +190,13 @@ namespace ProjectBardGame.GameEngine
             else
             {
                 _selector = new NewestSelector();
+            }
+        }
+
+        private TextContent NextCommand {
+            get
+            {
+                return "Type in a command.";
             }
         }
     }

@@ -53,6 +53,7 @@
     <Compile Include="Content\ContentTool.cs" />
     <Compile Include="Content\Repository.cs" />
     <Compile Include="Framework\IContentTool.cs" />
+    <Compile Include="Framework\IFactory.cs" />
     <Compile Include="Framework\IRepository.cs" />
     <Compile Include="Simple\OutputDriver.cs" />
     <Compile Include="Simple\Factories\CommandFactories.cs" />

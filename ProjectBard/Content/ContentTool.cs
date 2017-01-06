@@ -71,7 +71,7 @@ namespace ProjectBard.Content
             {
                 case "directory":
                     {
-                        result = ResultFactories.InformationalResult(Command, this, new TextContent($"The current directory is: {Directory}"), new TextContent("Type in a command."));
+                        result = ResultFactories.InformationalResult(Command, this, new TextContent($"The current directory is: {Directory}"), TextContentFactories.NextCommand);
                         break;
                     }
                 case "changedir":
@@ -81,7 +81,7 @@ namespace ProjectBard.Content
                     }
                 case "entity":
                     {
-                        result = ResultFactories.InformationalResult(Command, this, new TextContent($"The current entity is: {Entity}"), new TextContent("Type in a command."));
+                        result = ResultFactories.InformationalResult(Command, this, new TextContent($"The current entity is: {Entity}"), TextContentFactories.NextCommand);
                         break;
                     }
                 case "changeentity":
@@ -96,7 +96,7 @@ namespace ProjectBard.Content
                     }
                 case "entities":
                     {                        
-                        result = ResultFactories.InformationalResult(Command, this, new TextContent(GetEntitiesString().ToString()), new TextContent("Type in a command."));
+                        result = ResultFactories.InformationalResult(Command, this, new TextContent(GetEntitiesString().ToString()), TextContentFactories.NextCommand);
                         break;
                     }
                 case "data":
@@ -135,12 +135,12 @@ namespace ProjectBard.Content
                     }                    
                 case "exit":
                     {
-                        result = ResultFactories.StateChangedResult(Command, ReturnState, new TextContent($"Returning to previous state...\n\n").Append(ReturnState.StateDescription), new TextContent("Type in a command."));
+                        result = ResultFactories.StateChangedResult(Command, ReturnState, new TextContent($"Returning to previous state...\n\n").Append(ReturnState.StateDescription), TextContentFactories.NextCommand);
                         break;
                     }
                 default:
                     {
-                        result = ResultFactories.InformationalResult(Command, this, new TextContent("ERROR: Invalid command."), new TextContent("Type in a command."));
+                        result = ResultFactories.InformationalResult(Command, this, new TextContent("ERROR: Invalid command."), TextContentFactories.NextCommand);
                         break;
                     }
             }
@@ -242,7 +242,7 @@ namespace ProjectBard.Content
             IResult result;
             if (Command.Arguments.Count == 0)
             {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), new TextContent("Type in a command."));
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), TextContentFactories.NextCommand);
             }
             else
             {
@@ -257,7 +257,7 @@ namespace ProjectBard.Content
             IResult result;
             StringBuilder content = new StringBuilder($"All content items for entity {Entity}\n");
             content.Append(string.Join("\n", Repository.GetContent<string>()));
-            result = ResultFactories.InformationalResult(Command, this, new TextContent(content.ToString()), new TextContent("Type in a command."));
+            result = ResultFactories.InformationalResult(Command, this, new TextContent(content.ToString()), TextContentFactories.NextCommand);
             return result;
         }
 
@@ -265,7 +265,7 @@ namespace ProjectBard.Content
         {
             IResult result;
             Repository.Initialize();
-            result = ResultFactories.StateChangedResult(Command, this, new TextContent($"Empty data set initialized."), new TextContent("Type in a command."));
+            result = ResultFactories.StateChangedResult(Command, this, new TextContent($"Empty data set initialized."), TextContentFactories.NextCommand);
             return result;
         }
 
@@ -275,11 +275,11 @@ namespace ProjectBard.Content
             if (Command.Arguments.Count > 0)
             {
                 Directory = Command.Arguments[0];
-                result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The directory has been set to: {Directory}"), new TextContent("Type in a command."));
+                result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The directory has been set to: {Directory}"), TextContentFactories.NextCommand);
             }
             else
             {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Directory name not included."), new TextContent("Type in a command."));
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Directory name not included."), TextContentFactories.NextCommand);
             }
 
             return result;
@@ -303,37 +303,41 @@ namespace ProjectBard.Content
                 if (Entities.Contains(Command.Arguments[0].ToLower()))
                 {
                     Entity = Command.Arguments[0].ToLower();
-                    result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The entity has been set to: {Entity}"), new TextContent("Type in a command."));
+                    result = ResultFactories.StateChangedResult(Command, this, new TextContent($"The entity has been set to: {Entity}"), TextContentFactories.NextCommand);
                 }
                 else
                 {
-                    result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Selected entity does not exist."), new TextContent("Type in a command."));
+                    result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Selected entity does not exist."), TextContentFactories.NextCommand);
                 }
             }
             else
             {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Entity name not included."), new TextContent("Type in a command."));
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Entity name not included."), TextContentFactories.NextCommand);
             }
             return result;
         }
 
         private Result AddToRepository(ICommand Command, string Entity)
         {
-            Result result = null;
+            Result result = ResultFactories.InformationalResult(Command,this,new TextContent("ERROR: Item not added."), TextContentFactories.NextCommand);
             if (Command.Arguments.Count == 0)
             {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: No information for new content provided."), new TextContent("Type in a command."));
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: No information for new content provided."), TextContentFactories.NextCommand);
             }
             else
             {
                 try
-                {
-                    ITextContent addResult = Repository.Add(Entity, Command.Arguments.ToArray());
-                    result = ResultFactories.StateChangedResult(Command, this, addResult, new TextContent("Type a command."));
+                {                    
+                    if (Entity == "string")
+                    {
+                        ITextContent addResult = Repository.Add(Entity, string.Join(" ",Command.Arguments.ToArray()));
+                        result = ResultFactories.StateChangedResult(Command, this, addResult, TextContentFactories.NextCommand);                        
+                    }                    
+
                 }
                 catch (Exception e)
                 {
-                    result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), new TextContent("Type a command."));
+                    result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), TextContentFactories.NextCommand);
                 }
             }
 
@@ -343,23 +347,28 @@ namespace ProjectBard.Content
 
         private Result RemoveFromRepository(ICommand Command, string Entity)
         {
-            Result result = null;
+            Result result = ResultFactories.InformationalResult(Command, this, new TextContent("ERROR: Item not removed."), TextContentFactories.NextCommand);
             if (Command.Arguments.Count == 0)
             {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: No information for new content provided."), new TextContent("Type in a command."));
+                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: No information for removal content provided."), TextContentFactories.NextCommand);
             }
             else
             {
                 try
-                {
-                    ITextContent removeResult = Repository.Remove(Entity, Command.Arguments.ToArray());
-                    result = ResultFactories.StateChangedResult(Command, this, removeResult, new TextContent("Type a command."));
+                {                    
+                    if (Entity == "string")
+                    {
+                        ITextContent removeResult = Repository.Remove(Entity, string.Join(" ", Command.Arguments.ToArray()));
+                        result = ResultFactories.StateChangedResult(Command, this, removeResult, TextContentFactories.NextCommand);
+                    }
+
                 }
                 catch (Exception e)
                 {
-                    result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), new TextContent("Type a command."));
+                    result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), TextContentFactories.NextCommand);
                 }
             }
+
 
             return result;
         }
