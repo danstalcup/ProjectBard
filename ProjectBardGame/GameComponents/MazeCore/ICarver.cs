@@ -13,5 +13,6 @@ namespace ProjectBardGame.GameComponents
         void CarveSteps(int Steps);
         void CarveAllSteps();
         bool IsCarvingComplete { get; }
+        IMazeCell CurrentCell { get; set; }
     }
 }

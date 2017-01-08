@@ -128,6 +128,11 @@ namespace ProjectBardGame.GameComponents
             }
         }
 
+        public string Name
+        {
+            get; set;
+        }
+
         private int _width;
         private int _height;
 

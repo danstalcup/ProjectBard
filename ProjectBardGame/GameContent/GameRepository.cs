@@ -7,29 +7,31 @@ using System.Threading.Tasks;
 using ProjectBard.Framework;
 using ProjectBard.Simple;
 
+using ProjectBardGame.GameComponents;
+
 using Newtonsoft.Json;
 
-namespace ProjectBard.Content
+namespace ProjectBardGame.GameContent
 {
-    public class Repository : IRepository
+    public class GameRepository : IRepository
     {
-        public List<string> Strings { get; set; }
+        public List<Maze> Mazes { get; set; }
 
         public virtual void Initialize()
         {
-            Strings = new List<string>();
+            Mazes = new List<Maze>();
         }
 
         public string Serialize(string Entity)
         {
             string result = string.Empty;
-            switch(Entity)
+            switch (Entity)
             {
-                case "string":
-                {
-                    result = Serialize<string>();
-                    break;
-                }
+                case "maze":
+                    {
+                        result = Serialize<Maze>();
+                        break;
+                    }
             }
             return result;
         }
@@ -38,22 +40,22 @@ namespace ProjectBard.Content
         {
             switch (Entity)
             {
-                case "string":
-                {
-                    Deserialize<string>(Json);
-                    break;
-                }
+                case "maze":
+                    {
+                        Deserialize<Maze>(Json);
+                        break;
+                    }
             }
         }
 
-        public ITextContent Add(string Entity,  object Item)
+        public ITextContent Add(string Entity, object Item)
         {
             ITextContent result = new TextContent();
-            switch(Entity)
+            switch (Entity)
             {
-                case "string":
+                case "maze":
                     {
-                        result = Add<string>(Item as string);
+                        result = Add<Maze>(Item as Maze);
                         break;
                     }
             }
@@ -65,9 +67,9 @@ namespace ProjectBard.Content
             ITextContent result = new TextContent();
             switch (Entity)
             {
-                case "string":
+                case "maze":
                     {
-                        result = Remove<string>(Item as string);
+                        result = Remove<Maze>(Item as Maze);
                         break;
                     }
             }
@@ -76,13 +78,13 @@ namespace ProjectBard.Content
 
         public IList<object> GetContent(string Entity)
         {
-            IList<object> result = new List<object>();
+            IList <object> result = new List<object>();
 
-            if (Entity == "string")
+            if(Entity == "maze")
             {
-                result = Strings.Select(m => m as object).ToList();
+                result = Mazes.Select(m => m as object).ToList();
             }
-
+            
             return result;
         }
 
@@ -90,9 +92,9 @@ namespace ProjectBard.Content
         {
             IList<T> result = new List<T>();
             Type type = typeof(T);
-            if (type == typeof(string))            
+            if (type == typeof(Maze))
             {
-                result = Strings as List<T>;
+                result = Mazes as List<T>;
             }
             return result;
         }
@@ -101,9 +103,9 @@ namespace ProjectBard.Content
         {
             string result = string.Empty;
             Type type = typeof(T);
-            if (type == typeof(string))
+            if (type == typeof(Maze))
             {
-                result = JsonConvert.SerializeObject(Strings);
+                result = JsonConvert.SerializeObject(Mazes);
             }
             return result;
         }
@@ -111,26 +113,26 @@ namespace ProjectBard.Content
         public void Deserialize<T>(string Json)
         {
             Type type = typeof(T);
-            if (type == typeof(string))
+            if (type == typeof(Maze))
             {
-                Strings = JsonConvert.DeserializeObject<List<string>>(Json);
+                Mazes = JsonConvert.DeserializeObject<List<Maze>>(Json);
             }
         }
 
         public ITextContent Add<T>(T item)
-        {            
+        {
             bool itemAdded = false;
 
             Type type = typeof(T);
-            if (type == typeof(string))
+            if (type == typeof(Maze))
             {
-                Strings.Add(item as string);
-                itemAdded = true;               
+                Mazes.Add(item as Maze);
+                itemAdded = true;
             }
 
             string result = string.Empty;
 
-            if(itemAdded)
+            if (itemAdded)
             {
                 result = type.ToString() + " added: " + item.ToString();
             }
@@ -146,9 +148,9 @@ namespace ProjectBard.Content
             bool itemRemoved = false;
 
             Type type = typeof(T);
-            if (type == typeof(string))
+            if (type == typeof(Maze))
             {
-                Strings.Remove(item as string);
+                Mazes.Remove(item as Maze);
                 itemRemoved = true;
             }
 
@@ -168,15 +170,14 @@ namespace ProjectBard.Content
         IList<object> IRepository.GetContent(string Entity)
         {
             List<object> result = new List<object>();
-            switch(Entity.ToLower())
+            switch (Entity.ToLower())
             {
-                case "string":
-                    result = GetContent<string>() as List<object>;
+                case "maze":
+                    result = GetContent<Maze>() as List<object>;
                     break;
             }
             return result;
         }
 
-        //public void Add(string Entity
     }
 }

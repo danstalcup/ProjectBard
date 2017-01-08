@@ -9,20 +9,20 @@ using ProjectBard.Simple;
 using ProjectBard.Framework;
 
 
-namespace ProjectBard.Content
+namespace ProjectBard.Simple
 {
     public class ContentTool : IContentTool
     {
         
-
-        public ContentTool(IState ReturnState, IRepository Repository)
+        public ContentTool(IState ReturnState, IRepository Repository, List<string> Entities, ITransformer Transformer)
         {
             this.Repository = Repository;
             this.Repository.Initialize();
-            Directory = "content";
-            Entity = "string";
-            Entities = new List<string> { "string" };
+            Directory = "content";            
+            this.Entities = Entities;
+            Entity = Entities.Any() ? Entities[0] : string.Empty;
             this.ReturnState = ReturnState;
+            this.Transformer = Transformer;
         }
 
         public ITextContent StateDescription
@@ -235,12 +235,15 @@ namespace ProjectBard.Content
 
         public IRepository Repository { get; set; }
 
+        public ITransformer Transformer
+        { get; set; }
+
         // helpers!
 
         private IResult LoadExact(ICommand Command)
         {
             IResult result;
-            if (Command.Arguments.Count == 0)
+            if (!Command.Arguments.Any())
             {
                 result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: Folder of exact data set not included."), TextContentFactories.NextCommand);
             }
@@ -320,27 +323,16 @@ namespace ProjectBard.Content
         private Result AddToRepository(ICommand Command, string Entity)
         {
             Result result = ResultFactories.InformationalResult(Command,this,new TextContent("ERROR: Item not added."), TextContentFactories.NextCommand);
-            if (Command.Arguments.Count == 0)
-            {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: No information for new content provided."), TextContentFactories.NextCommand);
-            }
-            else
-            {
-                try
-                {                    
-                    if (Entity == "string")
-                    {
-                        ITextContent addResult = Repository.Add(Entity, string.Join(" ",Command.Arguments.ToArray()));
-                        result = ResultFactories.StateChangedResult(Command, this, addResult, TextContentFactories.NextCommand);                        
-                    }                    
 
-                }
-                catch (Exception e)
-                {
-                    result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), TextContentFactories.NextCommand);
-                }
+            try
+            {
+                var addResult  = Repository.Add(Entity, Transformer.Transform(Entity, Command.Arguments.ToArray()));                   
+                result = ResultFactories.StateChangedResult(Command, this, addResult, TextContentFactories.NextCommand);                                                              
             }
-
+            catch (Exception e)
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), TextContentFactories.NextCommand);
+            }            
 
             return result;
         }
@@ -348,27 +340,16 @@ namespace ProjectBard.Content
         private Result RemoveFromRepository(ICommand Command, string Entity)
         {
             Result result = ResultFactories.InformationalResult(Command, this, new TextContent("ERROR: Item not removed."), TextContentFactories.NextCommand);
-            if (Command.Arguments.Count == 0)
-            {
-                result = ResultFactories.InformationalResult(Command, this, new TextContent($"ERROR: No information for removal content provided."), TextContentFactories.NextCommand);
-            }
-            else
-            {
-                try
-                {                    
-                    if (Entity == "string")
-                    {
-                        ITextContent removeResult = Repository.Remove(Entity, string.Join(" ", Command.Arguments.ToArray()));
-                        result = ResultFactories.StateChangedResult(Command, this, removeResult, TextContentFactories.NextCommand);
-                    }
 
-                }
-                catch (Exception e)
-                {
-                    result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), TextContentFactories.NextCommand);
-                }
+            try
+            {
+                var removeResult = Repository.Remove(Entity, Transformer.Transform(Entity, Command.Arguments.ToArray()));
+                result = ResultFactories.StateChangedResult(Command, this, removeResult, TextContentFactories.NextCommand);
             }
-
+            catch (Exception e)
+            {
+                result = ResultFactories.InformationalResult(Command, this, new TextContent(e.Message), TextContentFactories.NextCommand);
+            }
 
             return result;
         }

@@ -24,7 +24,7 @@ namespace ProjectBardGame.GameComponents
             get
             {
                 bool result = false;
-                if(_activeCells.Count == 0)
+                if(!_activeCells.Any())
                 {
                     result = true;
                 }
@@ -39,6 +39,12 @@ namespace ProjectBardGame.GameComponents
                 return _maze;
             }
         }
+
+        public IMazeCell CurrentCell
+        {
+            get; set;
+        }
+
         public void CarveAllSteps()
         {
             while(!IsCarvingComplete)
@@ -68,7 +74,7 @@ namespace ProjectBardGame.GameComponents
                 }
             }
 
-            if(validNeighbors.Count == 0)
+            if(!validNeighbors.Any())
             {
                 _activeCells.Remove(nextCell);
                 _completeCells.Add(nextCell);
@@ -77,6 +83,7 @@ namespace ProjectBardGame.GameComponents
             {
                 IMazeCell cellToAdd = validNeighbors.ElementAt(_random.Next(validNeighbors.Count));
                 nextCell.CarveDirection(nextCell.Adjacency(cellToAdd).Value);
+                CurrentCell = cellToAdd;
                 _activeCells.Add(cellToAdd);
             }                                                       
         }
@@ -96,6 +103,6 @@ namespace ProjectBardGame.GameComponents
         private IMazeCellSelector _selector;
         private List<IMazeCell> _activeCells;
         private List<IMazeCell> _completeCells;        
-        private Random _random;
+        private Random _random;        
     }
 }

@@ -50,29 +50,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Content\ContentTool.cs" />
-    <Compile Include="Content\Repository.cs" />
-    <Compile Include="Framework\IContentTool.cs" />
-    <Compile Include="Framework\IFactory.cs" />
-    <Compile Include="Framework\IRepository.cs" />
-    <Compile Include="Simple\OutputDriver.cs" />
+    <Compile Include="Simple\Content\ContentTool.cs" />
+    <Compile Include="Simple\Content\Repository.cs" />
+    <Compile Include="Simple\Content\StringTransformer.cs" />
+    <Compile Include="Framework\Content\IContentTool.cs" />
+    <Compile Include="Framework\Content\ITransformer.cs" />
+    <Compile Include="Framework\Content\ITransformerModule.cs" />
+    <Compile Include="Framework\Content\IRepository.cs" />
+    <Compile Include="Simple\Content\Transformer.cs" />
+    <Compile Include="Simple\Core\OutputDriver.cs" />
     <Compile Include="Simple\Factories\CommandFactories.cs" />
     <Compile Include="Simple\Factories\ResultFactories.cs" />
     <Compile Include="Simple\Factories\StateFactories.cs" />
     <Compile Include="Simple\Factories\TextContentFactories.cs" />
-    <Compile Include="Simple\Result.cs" />
-    <Compile Include="Simple\Command.cs" />
-    <Compile Include="Simple\InputDriver.cs" />
-    <Compile Include="Simple\Engine.cs" />
-    <Compile Include="Framework\ICommand.cs" />
-    <Compile Include="Framework\IEngine.cs" />
-    <Compile Include="Framework\IInputDriver.cs" />
-    <Compile Include="Framework\IOutputDriver.cs" />
-    <Compile Include="Framework\IResult.cs" />
-    <Compile Include="Framework\IState.cs" />
-    <Compile Include="Framework\ITextContent.cs" />
-    <Compile Include="Simple\State.cs" />
-    <Compile Include="Simple\TextContent.cs" />
+    <Compile Include="Simple\Core\Result.cs" />
+    <Compile Include="Simple\Core\Command.cs" />
+    <Compile Include="Simple\Core\InputDriver.cs" />
+    <Compile Include="Simple\Core\Engine.cs" />
+    <Compile Include="Framework\Core\ICommand.cs" />
+    <Compile Include="Framework\Core\IEngine.cs" />
+    <Compile Include="Framework\Core\IInputDriver.cs" />
+    <Compile Include="Framework\Core\IOutputDriver.cs" />
+    <Compile Include="Framework\Core\IResult.cs" />
+    <Compile Include="Framework\Core\IState.cs" />
+    <Compile Include="Framework\Core\ITextContent.cs" />
+    <Compile Include="Simple\Core\State.cs" />
+    <Compile Include="Simple\Core\TextContent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -16,5 +16,6 @@ namespace ProjectBardGame.GameComponents
         ITextContent Display { get; }
         ICollection<IMazeAgentPosition> AgentPositions { get; }
         ICollection<IMazeAgent> Agents { get; }   
+        string Name { get; set; }
     }
 }

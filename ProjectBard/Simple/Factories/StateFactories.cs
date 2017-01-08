@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using ProjectBard.Content;
+using ProjectBard.Simple;
 using ProjectBard.Framework;
 
 
@@ -22,7 +22,7 @@ namespace ProjectBard.Simple
 
         public static ContentTool ContentToolState(IState CurrentState)
         {
-            return new Content.ContentTool(CurrentState, new Repository());
+            return new Simple.ContentTool(CurrentState, new Repository(), new List<string> { "string" }, new Transformer());
         }
     }
 }

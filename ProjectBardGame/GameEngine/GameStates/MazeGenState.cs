@@ -34,7 +34,9 @@ namespace ProjectBardGame.GameEngine
                             "newmaze [width] [height]",
                             "autocarve",
                             "autocarve [steps]",
-                            "autocarve all"
+                            "autocarve all",
+                            "savecopy",
+                            "name [name]"
                         }
                     );
             }
@@ -60,6 +62,17 @@ namespace ProjectBardGame.GameEngine
                         result = SetAutocarver(Command);
                         break;
                     }
+                case "name":
+                    {
+                        result = NameMaze(Command);
+                        break;
+                    }
+                case "savecopy":
+                    {
+                        result = SaveCopy(Command);
+                        break;
+                    }
+
                 default:
                     {
                         result = ResultFactories.InformationalResult(Command, this, new TextContent("Error: Your command was not detected."), NextCommand);
@@ -69,7 +82,21 @@ namespace ProjectBardGame.GameEngine
 
             return result;
         }
-        
+
+        private IResult NameMaze(ICommand command)
+        {
+            Result result;
+            if (!command.Arguments.Any())
+            {
+                result = ResultFactories.InformationalResult(command, this, new TextContent("ERROR: Name not included in arguments."), TextContentFactories.NextCommand);
+            }
+            else
+            {
+                Maze.Name = string.Join(" ", command.Arguments);
+                result = ResultFactories.StateChangedResult(command, this, new TextContent($"Maze name set to {Maze.Name}"), TextContentFactories.NextCommand);
+            }
+            return result;
+        }
 
         public IMaze Maze
         {
@@ -86,7 +113,7 @@ namespace ProjectBardGame.GameEngine
         private IResult CarveMaze(ICommand Command)
         {
             IResult result;
-            if (Command.Arguments.Count == 0)
+            if (!Command.Arguments.Any())
             {
                 _carver.CarveStep();
             }
@@ -130,7 +157,7 @@ namespace ProjectBardGame.GameEngine
         {
             IResult result = null;
 
-            if(command.Arguments.Count == 0)
+            if(!command.Arguments.Any())
             {
                 throw new ArgumentException("Argument required!");
             }
@@ -198,6 +225,18 @@ namespace ProjectBardGame.GameEngine
             {
                 return "Type in a command.";
             }
+        }
+
+        private IResult SaveCopy(ICommand command)
+        {                        
+            IResult result = ResultFactories.InformationalResult(command, this, new TextContent($"ERROR: Could not save maze {Maze.Name}."), TextContentFactories.NextCommand);
+            if (ReturnState is IContentTool)
+            {                
+                IContentTool contentTool = ReturnState as IContentTool;
+                contentTool.Repository.Add(_maze);
+                result = ResultFactories.StateChangedResult(command, this, new TextContent($"Maze {Maze.Name} saved!"), TextContentFactories.NextCommand);
+            }
+            return result;
         }
     }
 }

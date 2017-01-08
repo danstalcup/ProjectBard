@@ -20,5 +20,7 @@ namespace ProjectBard.Framework
 
         IRepository Repository { get; set; }
 
+        ITransformer Transformer { get; set; }
+
     }
 }

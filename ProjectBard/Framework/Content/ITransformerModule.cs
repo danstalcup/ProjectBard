@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjectBard.Framework
 {
-    public interface IFactory<T>
+    public interface ITransformerModule<T>
     {
         T Construct(params string[] Parameters);
     }

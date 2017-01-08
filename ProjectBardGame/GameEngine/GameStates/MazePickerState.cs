@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 using ProjectBard.Framework;
 using ProjectBard.Simple;
-using ProjectBardGame.GameContentTool;
+using ProjectBardGame.GameContent;
 using ProjectBardGame.GameComponents;
 
 namespace ProjectBardGame.GameEngine
 {
-    public class MazeSelectorState : IState
+    public class MazePickerState : IState
     {
-        public MazeSelectorState(GameRepository Repository)
+        public MazePickerState(GameRepository Repository)
         {
-            //_mazes = Repository.GetContent("maze");
+            _mazes = Repository.GetContent<Maze>().ToList();
         }
 
         public IState ReturnState
