@@ -55,7 +55,7 @@ namespace ProjectBardGame.GameContent
             {
                 case "maze":
                     {
-                        result = Add<Maze>(Item as Maze);
+                        result = Add((Maze)Item);
                         break;
                     }
             }
@@ -69,7 +69,7 @@ namespace ProjectBardGame.GameContent
             {
                 case "maze":
                     {
-                        result = Remove<Maze>(Item as Maze);
+                        result = Remove((Maze)Item);
                         break;
                     }
             }
@@ -82,7 +82,7 @@ namespace ProjectBardGame.GameContent
 
             if(Entity == "maze")
             {
-                result = Mazes.Select(m => m as object).ToList();
+                result = Mazes.Select(m => (object)m).ToList();
             }
             
             return result;
@@ -126,7 +126,9 @@ namespace ProjectBardGame.GameContent
             Type type = typeof(T);
             if (type == typeof(Maze))
             {
-                Mazes.Add(item as Maze);
+                Maze maze = item as Maze;
+                maze.ID = GetNextID<Maze>();
+                Mazes.Add(maze);
                 itemAdded = true;
             }
 
@@ -169,15 +171,40 @@ namespace ProjectBardGame.GameContent
 
         IList<object> IRepository.GetContent(string Entity)
         {
-            List<object> result = new List<object>();
+            IList<object> result = new List<object>();
             switch (Entity.ToLower())
             {
                 case "maze":
-                    result = GetContent<Maze>() as List<object>;
+                    result = (IList<object>)GetContent<Maze>() ;
                     break;
             }
             return result;
         }
 
+        public int GetNextID(string Entity)
+        {
+            int result = 0;
+
+            if (Entity == "maze")
+            {
+                result = GetNextID<Maze>();
+            }
+
+            return result;
+        }
+
+        public int GetNextID<E>() where E : IContentEntity
+        {
+            int result = 0;
+
+            Type type = typeof(E);
+
+            if(type == typeof(Maze))
+            {
+                result = (Mazes.Max(m => m.ID as int?) ?? 0) + 1;
+            }
+
+            return result;
+        }
     }
 }

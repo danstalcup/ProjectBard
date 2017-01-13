@@ -57,7 +57,7 @@ namespace ProjectBard.Simple
                         "load - Load in most recently saved data",
                         "loadexact [id] - Load in an exact data set",                        
                         "add [content] - Add content for the current entity type",                        
-                        "remove [content] - Remove content for current entity type",
+                        "remove [content] - Remove content for current entity type",                        
                         "exit - Return to start of game state"
                     }
                 );
@@ -137,7 +137,7 @@ namespace ProjectBard.Simple
                     {
                         result = ResultFactories.StateChangedResult(Command, ReturnState, new TextContent($"Returning to previous state...\n\n").Append(ReturnState.StateDescription), TextContentFactories.NextCommand);
                         break;
-                    }
+                    }                    
                 default:
                     {
                         result = ResultFactories.InformationalResult(Command, this, new TextContent("ERROR: Invalid command."), TextContentFactories.NextCommand);

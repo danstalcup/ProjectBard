@@ -94,30 +94,30 @@ namespace ProjectBardGame.GameComponents
             return result;
         }
 
-        public void CarveNorth()
+        public void CarveNorth(bool Carved = true)
         {
-            _northCarved = true;
+            _northCarved = Carved;
         }
 
-        public void CarveSouth()
+        public void CarveSouth(bool Carved = true)
         {            
             if(South != null)
             {
-                South.CarveNorth();
+                South.CarveNorth(Carved);
             }
         }
 
-        public void CarveEast()
+        public void CarveEast(bool Carved = true)
         {
             if(East != null)
             {
-                East.CarveWest();
+                East.CarveWest(Carved);
             }
         }
 
-        public void CarveWest()
+        public void CarveWest(bool Carved = true)
         {
-            _westCarved = true;
+            _westCarved = Carved;
         }
 
         public bool IsDirectionOpen(Direction Direction)
@@ -141,21 +141,21 @@ namespace ProjectBardGame.GameComponents
             return result;
         }
 
-        public void CarveDirection(Direction Direction)
+        public void CarveDirection(Direction Direction, bool Carved=true)
         {
             switch(Direction)
             {
                 case Direction.North:
-                    CarveNorth();
+                    CarveNorth(Carved);
                     break;
                 case Direction.South:
-                    CarveSouth();
+                    CarveSouth(Carved);
                     break;
                 case Direction.East:
-                    CarveEast();
+                    CarveEast(Carved);
                     break;
                 case Direction.West:
-                    CarveWest();
+                    CarveWest(Carved);
                     break;
             }
         }

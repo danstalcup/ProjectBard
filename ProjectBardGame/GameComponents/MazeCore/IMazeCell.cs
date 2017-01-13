@@ -20,11 +20,11 @@ namespace ProjectBardGame.GameComponents
         bool IsWestOpen { get; }
         bool[] IsNSEWOpen { get; }
         bool IsDirectionOpen(Direction Direction);
-        void CarveNorth();
-        void CarveSouth();
-        void CarveEast();
-        void CarveWest();
-        void CarveDirection(Direction Direction);
+        void CarveNorth(bool Carved = true);
+        void CarveSouth(bool Carved = true);
+        void CarveEast(bool Carved = true);
+        void CarveWest(bool Carved = true);
+        void CarveDirection(Direction Direction, bool Carved = true);
 
         int X { get; }
         int Y { get; }

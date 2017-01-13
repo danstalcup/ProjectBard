@@ -30,5 +30,8 @@ namespace ProjectBard.Framework
 
         IList<object> GetContent(string Entity);
 
+        int GetNextID(string Entity);
+
+        int GetNextID<E>() where E : IContentEntity;
     }
 }

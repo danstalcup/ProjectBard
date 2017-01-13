@@ -133,6 +133,11 @@ namespace ProjectBardGame.GameComponents
             get; set;
         }
 
+        public int ID
+        {
+            get; set;
+        }
+
         private int _width;
         private int _height;
 

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\Content\IContentEntity.cs" />
     <Compile Include="Simple\Content\ContentTool.cs" />
     <Compile Include="Simple\Content\Repository.cs" />
     <Compile Include="Simple\Content\StringTransformer.cs" />

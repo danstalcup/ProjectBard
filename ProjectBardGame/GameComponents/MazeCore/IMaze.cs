@@ -8,7 +8,7 @@ using ProjectBard.Framework;
 
 namespace ProjectBardGame.GameComponents
 {
-    public interface IMaze
+    public interface IMaze : IContentEntity
     {
         IMazeCell[,] Cells { get; }
         int Height { get; }

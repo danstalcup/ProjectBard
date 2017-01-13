@@ -53,7 +53,7 @@ namespace ProjectBard.Simple
             {
                 case "string":
                     {
-                        result = Add<string>(Item as string);
+                        result = Add((string)Item);
                         break;
                     }
             }
@@ -67,7 +67,7 @@ namespace ProjectBard.Simple
             {
                 case "string":
                     {
-                        result = Remove<string>(Item as string);
+                        result = Remove((string)Item);
                         break;
                     }
             }
@@ -80,7 +80,7 @@ namespace ProjectBard.Simple
 
             if (Entity == "string")
             {
-                result = Strings.Select(m => m as object).ToList();
+                result = Strings.Select(m => (object)m).ToList();
             }
 
             return result;
@@ -92,7 +92,7 @@ namespace ProjectBard.Simple
             Type type = typeof(T);
             if (type == typeof(string))            
             {
-                result = Strings as List<T>;
+                result = Strings as IList<T>;
             }
             return result;
         }
@@ -171,9 +171,30 @@ namespace ProjectBard.Simple
             switch(Entity.ToLower())
             {
                 case "string":
-                    result = GetContent<string>() as List<object>;
+                    result = (List<object>)GetContent<string>();
                     break;
             }
+            return result;
+        }
+
+        public int GetNextID(string Entity)
+        {
+            int result = 0;
+
+            if(Entity == "string")
+            {
+                result = 0; // but here would go the way to figure out the next one
+            }
+
+            return result;
+        }
+
+        public int GetNextID<E>() where E : IContentEntity
+        {
+            int result = 0;
+
+            // but here would go the way to figure out the next one
+
             return result;
         }
 

@@ -232,7 +232,7 @@ namespace ProjectBardGame.GameEngine
             IResult result = ResultFactories.InformationalResult(command, this, new TextContent($"ERROR: Could not save maze {Maze.Name}."), TextContentFactories.NextCommand);
             if (ReturnState is IContentTool)
             {                
-                IContentTool contentTool = ReturnState as IContentTool;
+                IContentTool contentTool = (IContentTool)ReturnState;
                 contentTool.Repository.Add(_maze);
                 result = ResultFactories.StateChangedResult(command, this, new TextContent($"Maze {Maze.Name} saved!"), TextContentFactories.NextCommand);
             }

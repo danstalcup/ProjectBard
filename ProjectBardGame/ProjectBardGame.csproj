@@ -71,6 +71,8 @@
     <Compile Include="GameComponents\MazeCore\Impl\RandomSelector.cs" />
     <Compile Include="GameComponents\MazeCore\Impl\SemiRandomSelector.cs" />
     <Compile Include="GameContent\GameRepository.cs" />
+    <Compile Include="GameContent\GameTransformer.cs" />
+    <Compile Include="GameContent\MazeTransformerModule.cs" />
     <Compile Include="GameEngine\Factories\MazeFactories.cs" />
     <Compile Include="GameEngine\GameStates\MazePickerState.cs" />
     <Compile Include="GameEngine\GameStates\MazeGenState.cs" />
